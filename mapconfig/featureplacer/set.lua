@@ -3,6 +3,12 @@
 
 local setcfg = {
 	unitlist = {
+		-- a neutral AK
+		
+		-- a hostile AK
+		
+		
+		
 	},
 	buildinglist = {
 	},
@@ -28,6 +34,12 @@ local setcfg = {
 		
 		-- low HP wrecked hammer
 		{name = 'armham_dead', x = 64,z = 32,  rot = "0" , health = 100.0}, -- works!
+		
+		-- a half-resurrected warrior
+		{name = 'armwar_dead', x = 64,z = 64,  rot = "0" , resurrectAs = 'armwar', resurrectProgress = 0.5}, -- works!
+		
+		-- a half dead, half reclaimed, half resurrected cb
+		{name = 'armck_dead', x = 64,z = 96,  rot = "0" , health = 100.0, resurrectAs = 'armck', resurrectProgress = 0.5, reclaimLeft = 0.5}, -- works!
 		
 	},
 }

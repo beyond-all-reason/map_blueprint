@@ -62,7 +62,7 @@ if ( featurecfg ) then
 						Spring.SetFeatureResources(featureID, fDef.metal or rm, fDef.energy or re, fDef.reclaimTime or rt, fDef.reclaimLeft or rl)
 					end
 					if fDef.resurrectAs then 
-						Spring.SetFeatureResurrect(featureID, fDef.resurrectAs, rotation)
+						Spring.SetFeatureResurrect(featureID, fDef.resurrectAs, rotation, fDef.resurrectProgress)
 					end
 					if fDef.health then 
 						Spring.SetFeatureHealth(featureID, fDef.health)
