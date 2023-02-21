@@ -75,14 +75,58 @@ if ( featurecfg ) then
 	end
 
 	if ( unitlist ) then
-		local los_status = {los=true, prevLos=true, contRadar=true, radar=true}
 		for i,uDef in pairs(unitlist) do
-			local flagID = CreateUnit(uDef.name, uDef.x, 0, uDef.z, 0, gaiaID)
-			SetUnitRotation(flagID, 0, -uDef.rot * math.pi / 32768, 0)
-			SetUnitNeutral(flagID,true)
-			Spring.SetUnitLosState(flagID,0,los_status)
-			SetUnitAlwaysVisible(flagID,true)
-			SetUnitBlocking(flagID,true)
+			local rotation = uDef.rot or 0
+			rotation = tonumber(rotation) or rotation
+			if rotation == -1 then 
+				rotation = (math.random() -0.5) * 65000 
+			end
+		
+			if UnitDefNames[uDef.name] then 
+				local unitID = CreateUnit(uDef.name, uDef.x, Spring.GetGroundHeight(uDef.x,uDef.z), uDef.z, rotation, gaiaID)
+				if unitID then 
+					SetUnitRotation(unitID, 0, rotation * math.pi / 32768, 0)
+					if uDef.neutral ~= false then 
+						SetUnitNeutral(unitID,true)
+					end
+					
+					local los_status = {
+						los = (uDef.los ~= false),
+						prevLos = (uDef.prevLos ~= false),
+						contRadar = (uDef.contRadar ~= false),
+						radar = (uDef.radar ~= false)
+						}
+					
+					Spring.SetUnitLosState(unitID,0,los_status)
+					if uDef.alwaysVisible ~= false then 
+						SetUnitAlwaysVisible(unitID,true)
+					end
+					if uDef.blocking ~= false then 
+						SetUnitBlocking(unitID,true)
+					end 
+					
+					if uDef.buildTime or uDef.metalCost or uDef.energyCost then 
+						Spring.SetUnitCosts(unitID, {buildTime = uDef.buildTime, metalCost = uDef.metalCost, energyCost = uDef.energyCost})
+					end
+					if uDef.health then 
+						Spring.SetUnitHealth(unitID, health) 
+					end
+					if uDef.maxHealth then 
+						Spring.SetUnitMaxHealth(unitID, uDef.maxHealth) 
+					end
+					
+					if uDef.stealth then 
+						Spring.SetUnitStealth(unitID, uDef.stealth) 
+					end
+					
+					if uDef.experience then 
+						Spring.SetUnitExperience(unitID, uDef.experience)
+					end
+					
+				end
+			else 
+				Spring.Echo("Warning: Cant find Unit Def name specified in maps set.lua", uDef.name)
+			end
 		end
 	end
 
