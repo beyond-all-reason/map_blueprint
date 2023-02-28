@@ -55,7 +55,7 @@ if ( featurecfg ) then
 				if rotation == -1 then 
 					rotation = (math.random() -0.5) * 65000 
 				end
-				local featureID = CreateFeature(fDef.name, fDef.x, Spring.GetGroundHeight(fDef.x,fDef.z)+5, fDef.z, rotation)
+				local featureID = CreateFeature(fDef.name, fDef.x, Spring.GetGroundHeight(fDef.x,fDef.z), fDef.z, rotation)
 				if featureID then 
 					if fDef.metal or fDef.energy or fDef.reclaimTime or fDef.reclaimLeft then 
 						local rm, mm, re, mr, rl, rt = Spring.GetFeatureResources(featureID)
